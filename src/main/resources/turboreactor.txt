@@ -1,0 +1,147 @@
+ Menú principal
+
+Wikipedia La enciclopedia libre
+
+    Crear una cuenta
+    Acceder
+
+Herramientas personales
+
+Contenidos
+Inicio
+Funcionamiento
+
+Comparación con otros motores similares
+
+Mejoras en la eficiencia
+
+        Incremento de la relación de presión en el compresor
+        Incremento de la temperatura en la turbina de alta presión
+        Doble flujo de aire
+    Véase también
+    Referencias
+
+Turborreactor
+
+    Artículo
+    Discusión
+
+    Leer
+    Editar
+    Ver historial
+
+Herramientas
+
+Diagrama del funcionamiento de un turborreactor.
+
+El turborreactor (en inglés: turbojet)1​ es el tipo más antiguo de los motores de reacción de uso general. El concepto fue desarrollado en motores prácticos a finales de los años 1930 de manera independiente por dos ingenieros, Frank Whittle en el Reino Unido y Hans von Ohain en Alemania; sin embargo, el reconocimiento de crear el primer turborreactor se le da a Whittle por ser el primero en concebir, describir formalmente, patentar y construir un motor funcional. Von Ohain, en cambio, fue el primero en utilizar el turborreactor para propulsar un avión.
+
+El ciclo de trabajo de este tipo de motores es el de Brayton, es similar al del motor recíproco por contar con la misma disposición de los tiempos de trabajo (admisión, compresión, combustión y escape o expansión). Un turborreactor consiste en una entrada de aire, un compresor de aire, una cámara de combustión, una turbina de gas (que mueve el compresor del aire) y una tobera. El aire entra comprimido en la cámara, se calienta y expande por la acción del combustible y entonces es expulsado a través de la turbina hacia la tobera, y es acelerado a altas velocidades para entregar la propulsión.2​
+
+Los turborreactores son solo eficientes a velocidades supersónicas3​ y son muy ruidosos. Por ello, la mayoría de los aviones modernos usan en su lugar motores turbohélice a velocidades bajas o turbofán a velocidades altas, que consumen menos combustible y son más silenciosos. No obstante, los turborreactores todavía son muy comunes en misiles de crucero de medio alcance debido a su gran velocidad de escape, baja área frontal y relativa simplicidad.
+
+Por este mismo motivo, su utilidad en otro tipo de vehículos es muy limitada. Han sido utilizados en casos aislados para batir récords de velocidad en tierra, como en el caso del Thrust SSC.
+Funcionamiento
+Vista en corte de un de Havilland Goblin, un turborreactor de flujo centrífugo utilizados en los primeros aviones de reacción británicos.
+Diagrama que muestra el funcionamiento de un motor turborreactor de flujo centrífugo.
+Vista en corte de un General Electric J85, un turborreactor de flujo axial diseñado en los años 1950 utilizado por el Northrop F-5 y otros aviones militares.
+Diagrama que muestra el funcionamiento de un motor turborreactor de flujo axial.
+
+Para la fase de compresión, se usan compresores axiales o centrífugos que comprimen grandes volúmenes de aire a una presión de entre 4 y 32 atmósferas.[cita requerida] Una vez comprimido el aire, se introduce en las cámaras de combustión donde el combustible es quemado de forma continua. El aire a alta presión y alta temperatura (es decir, con más energía que a la entrada) es llevado a la turbina, donde se expande parcialmente para obtener la energía que permite mover el compresor (similar al funcionamiento del turbocompresor que se encuentra en los automóviles). Después, el aire pasa por una tobera en la que es acelerado hasta la velocidad de salida.
+
+En este tipo de motores, la fuerza impulsora o empuje se obtiene por la variación de la cantidad de movimiento según la Tercera Ley de Newton, que establece que toda acción conlleva una reacción igual de sentido contrario. Al propulsar grandes volúmenes de aire hacia atrás a gran velocidad, se produce una reacción que impulsa la aeronave hacia adelante. Actualmente, estos motores alcanzan empujes de hasta 50 toneladas.[cita requerida]
+Comparación con otros motores similares
+
+Este tipo de motores es ampliamente utilizado en aeronáutica, dado que presenta varias ventajas frente a los motores alternativos:
+
+    Es más eficiente en términos de consumo de combustible.
+    Es más sencillo y tiene menos partes móviles.
+    Tiene una mejor relación peso/potencia.
+    Requiere menor mantenimiento.
+    La vida útil es más larga.
+
+Si bien el turborreactor es más eficaz en algunos aspectos respecto de otros tipos de motores de uso aeronáutico, comparado a los estatorreactores tiene desventajas técnicas a la hora de la construcción y del mantenimiento. Los estatorreactores, a diferencia de los reactores, pulsorreactores y motores de combustión interna, ofrecen el sistema valveless (sin válvula como los del tipo Lockwood Hiller) y que tienen ventajas significativas tales como:
+
+    Carencia de piezas móviles.
+    Relaciones peso/empuje mayores que los reactores.
+    Imposibilidad de fallo por ingestión de partículas sólidas.
+    Posibilita usar otros combustibles como aceites naturales, alcoholes o gases licuados sin modificación alguna.
+    Construcción simple.
+    Fácil disponibilidad de materiales.
+
+Mejoras en la eficiencia
+
+La relación de compresión se ha ido incrementando progresivamente desde los primeros turborreactores (en 1930 era de entre 3:1 y 6:1, mientras que los más recientes varían entre 40:1 y 50:1).4​ Esto aumenta la eficiencia del ciclo termodinámico según la ecuación η = 1 − ( P 1 P 2 ) ( γ − 1 ) / γ {\displaystyle \eta =1-\left({\frac {P_{1}}{P_{2}}}\right)^{(\gamma -1)/\gamma }} {\displaystyle \eta =1-\left({\frac {P_{1}}{P_{2}}}\right)^{(\gamma -1)/\gamma }}, siendo η {\displaystyle \eta } \eta el rendimiento, P 1 {\displaystyle P_{1}} P_1 y P 2 {\displaystyle P_{2}} P_2 las presiones a la entrada y salida del compresor respectivamente y γ {\displaystyle \gamma } \gamma el coeficiente de dilatación adiabática (en el aire es aproximadamente 1,4).
+Incremento de la relación de presión en el compresor
+Cuanto mayor es la distancia entre las dos isobaras, mayor es el rendimiento del Ciclo Brayton.
+
+Mediante el uso de palas variables en el estator se pueden conseguir mejores sistemas de control del flujo de aire y se evitan fugas de aire a altas presiones y temperaturas.4​
+
+Además, una configuración con dos rotores coaxiales ofrece ventajas adicionales:4​
+
+    Selección de velocidades óptimas para las etapas de alta y baja presión (abreviado HP y LP, del inglés High Pressure y Low Pressure).
+    Reducción del número de etapas en el compresor.
+    La refrigeración del aire se realiza más fácilmente entre ambos rotores.
+    El arranque del motor es más sencillo, puesto que solo es necesario hacer rotar al rotor de alta presión.
+
+Incremento de la temperatura en la turbina de alta presión
+
+Al igual que ocurre con la presión, la temperatura a la entrada de la turbina influye en la eficiencia del ciclo Brayton.
+
+Los primeros turborreactores utilizaban palas sólidas, de modo que la temperatura máxima dependía directamente de las mejoras en los materiales estructurales (unos 1100 °C).4​ A partir de las décadas de 1960 y 1970 se empezaron a construir palas huecas con refrigeración interna mediante el moldeo a la cera perdida. Actualmente, esta refrigeración se realiza mediante la técnica single crystal casting o moldeo con monocristales, lo que aumenta el tiempo que pueden estar sometidas a grandes tensiones.
+Doble flujo de aire
+En un motor turbofán parte del aire es desviado a un flujo lateral.
+
+La mayoría de los aviones modernos, tanto civiles como militares, usan una versión modificada del turborreactor denominada turbofán, que posee las siguientes ventajas:5​
+
+    Evita las pérdidas por compresibilidad que limitan la velocidad de crucero a la que se puede volar de forma eficiente en los aviones de hélice.
+
+    El peso por unidad de potencia es significativamente menor, o lo que es lo mismo, aumenta la relación empuje a peso.
+    Es capaz de producir una cantidad enorme de potencia sin restricciones mecánicas importantes.
+    La eficiencia es aproximadamente la misma que la de los motores alternativos más eficientes diseñados para aviación, con la ventaja de que este rendimiento máximo se consigue a una velocidad mayor.
+    Es más fiable y puede operar más horas que otros motores sin un mantenimiento exhaustivo.
+
+Véase también
+
+    Pulsorreactor
+    Motor de reacción
+    Turbofán
+    Turbohélice
+    Motor de aviación
+    Combustible de turbina de aviación
+
+Referencias
+
+Jorge García de la Cuesta Terminología aeronáutica
+«Turbojet Engine» (en inglés). NASA Glenn Research Center. Archivado desde el original el 8 de mayo de 2009. Consultado el 16 de abril de 2010.
+Ernest Vallbona. «Motor de Turbina». Consultado el 21 de noviembre de 2014.
+«Mechanical Design of Turbojet Engines». Université de Liège (en inglés). Consultado el 21 de noviembre de 2014.
+
+    «Turbojet and Turbofan Systems». NASA (en inglés). Consultado el 21 de noviembre de 2014.
+
+Control de autoridades
+
+    Proyectos Wikimedia Wd Datos: Q723916 Commonscat Multimedia: Turbojet engines / Q723916
+
+    Diccionarios y enciclopedias Britannica: url
+
+Categorías:
+
+    Componentes de aeronavesMotores de reacción
+
+    Esta página se editó por última vez el 17 oct 2023 a las 08:37.
+    El texto está disponible bajo la Licencia Creative Commons Atribución-CompartirIgual 4.0; pueden aplicarse cláusulas adicionales. Al usar este sitio aceptas nuestros términos de uso y nuestra política de privacidad.
+    Wikipedia® es una marca registrada de la Fundación Wikimedia, una organización sin ánimo de lucro.
+
+    Política de privacidad
+    Acerca de Wikipedia
+    Limitación de responsabilidad
+    Código de conducta
+    Desarrolladores
+    Estadísticas
+    Declaración de cookies
+    Versión para móviles
+
+    Wikimedia Foundation
+    Powered by MediaWiki
+
