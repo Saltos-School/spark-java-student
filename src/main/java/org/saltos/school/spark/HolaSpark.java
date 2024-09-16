@@ -17,16 +17,19 @@ public class HolaSpark {
         System.out.println("Hola Spark");
         SparkSession spark = SparkSession.builder()
                 .appName("HolaSpark")
-                .config("spark.master", "local")
+                .config("spark.master", "local[*]")
                 .getOrCreate();
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
+        jsc.setLogLevel("WARN");
         List<String> nombresEnJava = Arrays.asList("Anna", "Paul", "Pepe");
         JavaRDD<String> nombresEnSpark = jsc.parallelize(nombresEnJava);
         JavaRDD<String> nombresEnMayusculaEnSpark = nombresEnSpark.map(HolaSpark::pasarAMayusculas);
-        //long total = nombresEnSpark.count();
-        //System.out.println("El total de nombres es: " + total);
+        long total = nombresEnMayusculaEnSpark.count();
+        System.out.println("El total de nombres es: " + total);
         List<String> nombresEnMayusculaEnJava = nombresEnMayusculaEnSpark.collect();
         nombresEnMayusculaEnJava.forEach(System.out::println);
+        List<String> nombresEnMayusculaEnJava2 = nombresEnMayusculaEnSpark.collect();
+        nombresEnMayusculaEnJava2.forEach(System.out::println);
         jsc.close();
         spark.close();
     }
