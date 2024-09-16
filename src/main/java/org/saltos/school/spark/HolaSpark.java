@@ -13,6 +13,10 @@ public class HolaSpark {
         return nombre.toUpperCase();
     }
 
+    static int contarLetras(String nombre) {
+        return nombre.length();
+    }
+
     public static void main(String[] args) {
         System.out.println("Hola Spark");
         SparkSession spark = SparkSession.builder()
@@ -21,9 +25,13 @@ public class HolaSpark {
                 .getOrCreate();
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
         jsc.setLogLevel("WARN");
-        List<String> nombresEnJava = Arrays.asList("Anna", "Paul", "Pepe");
+        List<String> nombresEnJava = Arrays.asList("Anna", "Paul", "Pepe", "Sandra");
         JavaRDD<String> nombresEnSpark = jsc.parallelize(nombresEnJava);
         JavaRDD<String> nombresEnMayusculaEnSpark = nombresEnSpark.map(HolaSpark::pasarAMayusculas);
+        JavaRDD<Integer> conteoLetras = nombresEnSpark.map(HolaSpark::contarLetras);
+        //JavaRDD<Integer> conteoLetras = nombresEnSpark.map(nombre -> contarLetras(nombre));
+        //JavaRDD<Integer> conteoLetras = nombresEnSpark.map(String::length);
+        conteoLetras.collect().forEach(System.out::println);
         long total = nombresEnMayusculaEnSpark.count();
         System.out.println("El total de nombres es: " + total);
         List<String> nombresEnMayusculaEnJava = nombresEnMayusculaEnSpark.collect();
