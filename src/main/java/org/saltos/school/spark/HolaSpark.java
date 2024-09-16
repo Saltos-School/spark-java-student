@@ -9,6 +9,10 @@ import java.util.List;
 
 public class HolaSpark {
 
+    static String pasarAMayusculas(String nombre) {
+        return nombre.toUpperCase();
+    }
+
     public static void main(String[] args) {
         System.out.println("Hola Spark");
         SparkSession spark = SparkSession.builder()
@@ -18,8 +22,13 @@ public class HolaSpark {
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
         List<String> nombresEnJava = Arrays.asList("Anna", "Paul", "Pepe");
         JavaRDD<String> nombresEnSpark = jsc.parallelize(nombresEnJava);
-        long total = nombresEnSpark.count();
-        System.out.println("El total de nombres es: " + total);
+        JavaRDD<String> nombresEnMayusculaEnSpark = nombresEnSpark.map(HolaSpark::pasarAMayusculas);
+        //long total = nombresEnSpark.count();
+        //System.out.println("El total de nombres es: " + total);
+        List<String> nombresEnMayusculaEnJava = nombresEnMayusculaEnSpark.collect();
+        nombresEnMayusculaEnJava.forEach(System.out::println);
+        jsc.close();
+        spark.close();
     }
 
 }
