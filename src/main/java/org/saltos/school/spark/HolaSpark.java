@@ -31,6 +31,7 @@ public class HolaSpark {
         JavaRDD<Integer> conteoLetras = nombresEnSpark.map(HolaSpark::contarLetras);
         //JavaRDD<Integer> conteoLetras = nombresEnSpark.map(nombre -> contarLetras(nombre));
         //JavaRDD<Integer> conteoLetras = nombresEnSpark.map(String::length);
+        //JavaRDD<Integer> conteoLetras = nombresEnSpark.map(x -> x.length());
         conteoLetras.collect().forEach(System.out::println);
         long total = nombresEnMayusculaEnSpark.count();
         System.out.println("El total de nombres es: " + total);
