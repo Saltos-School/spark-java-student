@@ -6,6 +6,11 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
+
+import java.util.Arrays;
 
 public class HolaArchivos {
 
@@ -16,6 +21,7 @@ public class HolaArchivos {
                 .config("spark.master", "local[*]")
                 .getOrCreate();
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
+        jsc.setLogLevel("WARN");
 
         Dataset<Row> peopleCsv = spark.read()
                 .format("csv")
@@ -35,17 +41,30 @@ public class HolaArchivos {
         peopleTxt.printSchema();
         peopleTxt.show();
 
+        //spark.read().format("csv")
+        //spark.read().csv()
+        //spark.read().text()
+        //spark.read().format("text")
+
         JavaRDD<String> peopleRDD = jsc.textFile("src/main/resources/people.txt");
         JavaRDD<Row> peopleRowRDD = peopleRDD.map(linea -> {
             String[] partes = linea.split(",");
-            String nombre = partes[0];
-            String edad = partes[1];
+            String nombre = partes[0].trim();
+            Long edad = Long.parseLong(partes[1].trim());
             Row fila = RowFactory.create(nombre, edad);
             return fila;
         });
 
         System.out.println("People Row RDD:");
         peopleRowRDD.collect().forEach(System.out::println);
+
+        StructField nombreField = DataTypes.createStructField("nombre", DataTypes.StringType, false);
+        StructField edadField = DataTypes.createStructField("edad", DataTypes.LongType, true);
+        StructType esquema = DataTypes.createStructType(Arrays.asList(nombreField, edadField));
+
+        Dataset<Row> peopleDF = spark.createDataFrame(peopleRowRDD, esquema);
+        peopleDF.printSchema();
+        peopleDF.show();
 
         jsc.close();
         spark.close();
