@@ -47,7 +47,10 @@ public class HolaArchivos {
         //spark.read().format("text")
 
         JavaRDD<String> peopleRDD = jsc.textFile("src/main/resources/people.txt");
-        JavaRDD<Row> peopleRowRDD = peopleRDD.map(linea -> {
+
+        JavaRDD<String> peopleRDDLimpio = peopleRDD.filter(linea -> linea.trim().length() > 0);
+
+        JavaRDD<Row> peopleRowRDD = peopleRDDLimpio.map(linea -> {
             String[] partes = linea.split(",");
             String nombre = partes[0].trim();
             Long edad = Long.parseLong(partes[1].trim());
