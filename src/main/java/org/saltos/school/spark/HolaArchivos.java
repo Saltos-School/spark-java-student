@@ -58,6 +58,14 @@ public class HolaArchivos {
         System.out.println("People Row RDD:");
         peopleRowRDD.collect().forEach(System.out::println);
 
+        JavaRDD<Row> peopleConMRowRDD = peopleRowRDD.filter(fila -> {
+           String nombre = fila.getString(0);
+           return nombre.startsWith("M");
+        });
+
+        System.out.println("People con M Row RDD:");
+        peopleConMRowRDD.collect().forEach(System.out::println);
+
         StructField nombreField = DataTypes.createStructField("nombre", DataTypes.StringType, false);
         StructField edadField = DataTypes.createStructField("edad", DataTypes.LongType, true);
         StructType esquema = DataTypes.createStructType(Arrays.asList(nombreField, edadField));
@@ -65,6 +73,16 @@ public class HolaArchivos {
         Dataset<Row> peopleDF = spark.createDataFrame(peopleRowRDD, esquema);
         peopleDF.printSchema();
         peopleDF.show();
+
+        System.out.println("Adultos:");
+        Dataset<Row> adultosDF = peopleDF.filter(peopleDF.col("edad").gt(20));
+        adultosDF.printSchema();
+        adultosDF.show();
+
+        System.out.println("People que empieza por M:");
+        Dataset<Row> peopleConMDF = peopleDF.filter(peopleDF.col("nombre").startsWith("M"));
+        peopleConMDF.printSchema();
+        peopleConMDF.show();
 
         jsc.close();
         spark.close();
