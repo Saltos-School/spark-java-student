@@ -33,6 +33,8 @@ public class HolaEmployees {
         asalariadosDF2.printSchema();
         asalariadosDF2.show();
 
+        asalariadosDF2.write().csv("src/main/resources/employees.csv");
+
         jsc.close();
         spark.close();
     }
