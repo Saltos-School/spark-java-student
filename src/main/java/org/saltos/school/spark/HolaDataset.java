@@ -52,6 +52,15 @@ public class HolaDataset {
         JavaRDD<PersonaBean> personaComoRDD = personaDS.toJavaRDD();
         Dataset<Row> personaComoDF = personaDS.toDF();
 
+        JavaRDD<String> personaRDDOriginal = personaComoRDD.map(personaBean -> personaBean.getNombre() + ", " + personaBean.getEdad());
+        JavaRDD<String> personaRDDOriginal2 = personaComoRDD.map(personaBean -> String.format("%s, %d", personaBean.getNombre(), personaBean.getEdad()));
+
+        System.out.println("Muestra de sample: ");
+        personaRDDOriginal.takeSample(true, 2).forEach(System.out::println);
+
+        System.out.println("Muestra de sample2: ");
+        personaRDDOriginal2.takeSample(true, 2).forEach(System.out::println);
+
         peopleDF.createOrReplaceTempView("persona");
 
         Dataset<Row> peopleSQLDF = spark.sql("SELECT nombre FROM persona WHERE edad IS NOT NULL");
