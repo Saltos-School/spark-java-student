@@ -45,7 +45,9 @@ public class HolaDataset {
         personaDS.printSchema();
         personaDS.show();
 
-        //personaDS.filter(persona -> persona.getNombre().startWith("M"));
+        Dataset<PersonaBean> nombresConMDS = personaDS.filter((PersonaBean persona) -> persona.getNombre().startsWith("M"));
+        nombresConMDS.printSchema();
+        nombresConMDS.show();
 
         jsc.close();
         spark.close();
