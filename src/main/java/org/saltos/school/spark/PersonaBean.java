@@ -37,4 +37,12 @@ public class PersonaBean implements Serializable {
     public int hashCode() {
         return Objects.hash(nombre, edad);
     }
+
+    @Override
+    public String toString() {
+        return "PersonaBean{" +
+                "nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                '}';
+    }
 }
