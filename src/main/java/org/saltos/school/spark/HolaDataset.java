@@ -49,6 +49,15 @@ public class HolaDataset {
         nombresConMDS.printSchema();
         nombresConMDS.show();
 
+        JavaRDD<PersonaBean> personaComoRDD = personaDS.toJavaRDD();
+        Dataset<Row> personaComoDF = personaDS.toDF();
+
+        peopleDF.createOrReplaceTempView("persona");
+
+        Dataset<Row> peopleSQLDF = spark.sql("SELECT nombre FROM persona WHERE edad IS NOT NULL");
+        peopleSQLDF.printSchema();
+        peopleSQLDF.show();
+
         jsc.close();
         spark.close();
 
