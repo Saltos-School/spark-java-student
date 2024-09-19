@@ -1,9 +1,11 @@
 package org.saltos.school.spark;
 
 import org.apache.spark.api.java.JavaDoubleRDD;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.SparkSession;
+import scala.Tuple2;
 
 import java.util.Arrays;
 import java.util.List;
@@ -94,6 +96,15 @@ public class HolaOperaciones {
 
         double sumaDeCuadradosAggregate = numerosEnSpark.aggregate(0.0, (x, y) -> (x * x) + (y * y), (x, y) -> x + y);
         System.out.println("Suma de cuadrados aggregate: " + sumaDeCuadradosAggregate);
+
+        // zip (transformación)
+        JavaRDD<String> letras = jsc.parallelize(Arrays.asList("a", "b", "c"));
+        JavaRDD<Integer> enteros = jsc.parallelize(Arrays.asList(1, 2, 3));
+        JavaPairRDD<String, Integer> letrasConEnteros = letras.zip(enteros);
+        List<Tuple2<String, Integer>>  listaDeLetrasConEnteros = letrasConEnteros.collect();
+        for (Tuple2<String, Integer> tupla: listaDeLetrasConEnteros) {
+            System.out.println("Letra con entero: " + tupla._1 + " " + tupla._2);
+        }
 
         jsc.close();
         spark.close();
