@@ -5,6 +5,8 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import java.util.Date;
+
 public class HolaEmployees {
 
     public static void main(String[] args) {
@@ -33,7 +35,8 @@ public class HolaEmployees {
         asalariadosDF2.printSchema();
         asalariadosDF2.show();
 
-        asalariadosDF2.write().csv("src/main/resources/employees.csv");
+        long timestamp = new Date().getTime();
+        asalariadosDF2.write().csv("src/main/resources/employees" + timestamp + ".csv");
 
         jsc.close();
         spark.close();
