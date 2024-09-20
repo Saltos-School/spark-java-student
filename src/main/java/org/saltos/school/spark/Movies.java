@@ -9,6 +9,8 @@ import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 import org.apache.spark.storage.StorageLevel;
 
+import java.util.List;
+
 import static org.apache.spark.sql.functions.desc;
 
 public class Movies {
@@ -28,13 +30,23 @@ public class Movies {
         ratingsDF.printSchema();
         ratingsDF.show();
 
-        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = 5");
+        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = 5").persist();
         ratingsForUserDF.printSchema();
         ratingsForUserDF.show();
 
-        Dataset<Row> ratingsForUserSortedDF = ratingsForUserDF.sort(desc("rating"));
+        Dataset<Row> ratingsForUserSortedDF = ratingsForUserDF.sort(desc("rating")).cache();
         ratingsForUserSortedDF.printSchema();
         ratingsForUserSortedDF.show();
+        System.out.println("ratingsForUserSortedDF count: " + ratingsForUserSortedDF.count());
+
+        Dataset<Row> ratingsUserTop10DF = ratingsForUserSortedDF.limit(10).cache();
+        ratingsUserTop10DF.printSchema();
+        ratingsUserTop10DF.show();
+        System.out.println("ratingsUserTop10DF count: " + ratingsUserTop10DF.count());
+
+        Dataset<Row> ratingsUserTop10MoviesDF = ratingsUserTop10DF.join(moviesDF, "movieId");
+        ratingsUserTop10MoviesDF.printSchema();
+        ratingsUserTop10MoviesDF.show();
 
         jsc.close();
         spark.close();
