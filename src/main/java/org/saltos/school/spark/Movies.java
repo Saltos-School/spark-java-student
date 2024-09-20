@@ -30,7 +30,11 @@ public class Movies {
         ratingsDF.printSchema();
         ratingsDF.show();
 
-        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = 5").persist();
+        Dataset<Row> linksDF = getLinksDF(spark).cache();
+        linksDF.printSchema();
+        linksDF.show();
+
+        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = 1").persist();
         ratingsForUserDF.printSchema();
         ratingsForUserDF.show();
 
@@ -47,6 +51,10 @@ public class Movies {
         Dataset<Row> ratingsUserTop10MoviesDF = ratingsUserTop10DF.join(moviesDF, "movieId");
         ratingsUserTop10MoviesDF.printSchema();
         ratingsUserTop10MoviesDF.show();
+
+        Dataset<Row> ratingsUserTop10MoviesIdsDF = ratingsUserTop10MoviesDF.join(linksDF, "movieId");
+        ratingsUserTop10MoviesIdsDF.printSchema();
+        ratingsUserTop10MoviesIdsDF.show();
 
         jsc.close();
         spark.close();
@@ -65,7 +73,6 @@ public class Movies {
         return moviesDF;
     }
 
-
     private static Dataset<Row> getRatingsDF(SparkSession spark) {
         StructType ratingsSchema = DataTypes.createStructType(new StructField[]{
                         DataTypes.createStructField("userId", DataTypes.LongType, false),
@@ -78,5 +85,18 @@ public class Movies {
                 .schema(ratingsSchema)
                 .csv("/home/csaltos/Documents/ml-latest-small/ratings.csv");
         return ratingsDF;
+    }
+
+    private static Dataset<Row> getLinksDF(SparkSession spark) {
+        StructType ratingsSchema = DataTypes.createStructType(new StructField[]{
+                DataTypes.createStructField("movieId", DataTypes.LongType, false),
+                DataTypes.createStructField("imdbId", DataTypes.StringType, false),
+                DataTypes.createStructField("tmdbId", DataTypes.StringType, false)
+        });
+        Dataset<Row> linksDF = spark.read()
+                .option("header", "true")
+                .schema(ratingsSchema)
+                .csv("/home/csaltos/Documents/ml-latest-small/links.csv");
+        return linksDF;
     }
 }
