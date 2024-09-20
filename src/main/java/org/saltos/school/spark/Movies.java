@@ -17,6 +17,7 @@ public class Movies {
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
         jsc.setLogLevel("WARN");
 
+        Dataset<Row> moviesDF = getMoviesDF(spark);
         Dataset<Row> ratingsDF = getRatingsDF(spark);
 
         ratingsDF.printSchema();
@@ -25,6 +26,20 @@ public class Movies {
         jsc.close();
         spark.close();
     }
+
+    private static Dataset<Row> getMoviesDF(SparkSession spark) {
+        StructType ratingsSchema = DataTypes.createStructType(new StructField[]{
+                DataTypes.createStructField("movieId", DataTypes.LongType, false),
+                DataTypes.createStructField("title", DataTypes.StringType, false),
+                DataTypes.createStructField("genres", DataTypes.StringType, false)
+        });
+        Dataset<Row> moviesDF = spark.read()
+                .option("header", "true")
+                .schema(ratingsSchema)
+                .csv("/home/csaltos/Documents/ml-latest-small/movies.csv");
+        return moviesDF;
+    }
+
 
     private static Dataset<Row> getRatingsDF(SparkSession spark) {
         StructType ratingsSchema = DataTypes.createStructType(new StructField[]{
