@@ -9,6 +9,8 @@ import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 import org.apache.spark.storage.StorageLevel;
 
+import static org.apache.spark.sql.functions.desc;
+
 public class Movies {
 
     public static void main(String[] args) {
@@ -25,6 +27,14 @@ public class Movies {
         Dataset<Row> ratingsDF = getRatingsDF(spark).persist(StorageLevel.MEMORY_AND_DISK());
         ratingsDF.printSchema();
         ratingsDF.show();
+
+        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = 5");
+        ratingsForUserDF.printSchema();
+        ratingsForUserDF.show();
+
+        Dataset<Row> ratingsForUserSortedDF = ratingsForUserDF.sort(desc("rating"));
+        ratingsForUserSortedDF.printSchema();
+        ratingsForUserSortedDF.show();
 
         jsc.close();
         spark.close();
