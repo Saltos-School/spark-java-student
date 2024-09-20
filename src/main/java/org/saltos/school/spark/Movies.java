@@ -7,6 +7,7 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
+import org.apache.spark.storage.StorageLevel;
 
 public class Movies {
 
@@ -17,9 +18,11 @@ public class Movies {
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
         jsc.setLogLevel("WARN");
 
-        Dataset<Row> moviesDF = getMoviesDF(spark);
-        Dataset<Row> ratingsDF = getRatingsDF(spark);
+        Dataset<Row> moviesDF = getMoviesDF(spark).cache();
+        moviesDF.printSchema();
+        moviesDF.show();
 
+        Dataset<Row> ratingsDF = getRatingsDF(spark).persist(StorageLevel.MEMORY_AND_DISK());
         ratingsDF.printSchema();
         ratingsDF.show();
 
