@@ -29,7 +29,8 @@ public class Movies {
         StructType schemaConGeneros = DataTypes.createStructType(new StructField[]{
                 DataTypes.createStructField("movieId", DataTypes.LongType, false),
                 DataTypes.createStructField("title", DataTypes.StringType, false),
-                DataTypes.createStructField("genres", DataTypes.createArrayType(DataTypes.StringType), false)
+                DataTypes.createStructField("genres", DataTypes.createArrayType(DataTypes.StringType), false),
+                DataTypes.createStructField("genres_conteo", DataTypes.LongType, false)
         });
         Encoder<Row> encoderGeneros = RowEncoder.apply(schemaConGeneros);
         Dataset<Row> moviesConGenerosDF = moviesDF.map((MapFunction<Row, Row>) fila -> {
@@ -37,7 +38,8 @@ public class Movies {
             String title = fila.getString(1);
             String genres = fila.getString(2);
             String[] genresArray = genres.split("\\|");
-            return RowFactory.create(movieId, title, genresArray);
+            Long generesConteo = (long) genresArray.length;
+            return RowFactory.create(movieId, title, genresArray, generesConteo);
         }, encoderGeneros);
         moviesConGenerosDF.printSchema();
         moviesConGenerosDF.show();
