@@ -1,9 +1,9 @@
 package org.saltos.school.spark;
 
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.api.java.function.MapFunction;
+import org.apache.spark.sql.*;
+import org.apache.spark.sql.catalyst.encoders.RowEncoder;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
@@ -25,6 +25,22 @@ public class Movies {
         Dataset<Row> moviesDF = getMoviesDF(spark).cache();
         moviesDF.printSchema();
         moviesDF.show();
+
+        StructType schemaConGeneros = DataTypes.createStructType(new StructField[]{
+                DataTypes.createStructField("movieId", DataTypes.LongType, false),
+                DataTypes.createStructField("title", DataTypes.StringType, false),
+                DataTypes.createStructField("genres", DataTypes.createArrayType(DataTypes.StringType), false)
+        });
+        Encoder<Row> encoderGeneros = RowEncoder.apply(schemaConGeneros);
+        Dataset<Row> moviesConGenerosDF = moviesDF.map((MapFunction<Row, Row>) fila -> {
+            Long movieId = fila.getLong(0);
+            String title = fila.getString(1);
+            String genres = fila.getString(2);
+            String[] genresArray = genres.split("\\|");
+            return RowFactory.create(movieId, title, genresArray);
+        }, encoderGeneros);
+        moviesConGenerosDF.printSchema();
+        moviesConGenerosDF.show();
 
         Dataset<Row> ratingsDF = getRatingsDF(spark).persist(StorageLevel.MEMORY_AND_DISK());
         ratingsDF.printSchema();
