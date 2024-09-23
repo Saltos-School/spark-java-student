@@ -52,7 +52,23 @@ public class Movies {
         linksDF.printSchema();
         linksDF.show();
 
-        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = 1").persist();
+        Dataset<Row> usersDF = ratingsDF.select("userId").distinct();
+        usersDF.printSchema();
+        usersDF.show();
+
+        List<Row> listaDeUsuariosRow = usersDF.limit(20).collectAsList();
+
+        listaDeUsuariosRow.forEach(usuario -> {
+            Long selectedUserId = usuario.getLong(0);
+            calcularTop10Usuario(selectedUserId, ratingsDF, moviesDF, linksDF);
+        });
+
+        jsc.close();
+        spark.close();
+    }
+
+    private static void calcularTop10Usuario(Long selectedUserId, Dataset<Row> ratingsDF, Dataset<Row> moviesDF, Dataset<Row> linksDF) {
+        Dataset<Row> ratingsForUserDF = ratingsDF.filter("userId = " + selectedUserId).persist();
         ratingsForUserDF.printSchema();
         ratingsForUserDF.show();
 
@@ -114,14 +130,10 @@ public class Movies {
             System.out.println("Pelicula: " + pelicula);
         });
 
-        resultadoDF.write().mode(SaveMode.Overwrite).json("/home/csaltos/Documents/ml-latest-small-resultados/user-1");
-        resultadoDF.write().mode(SaveMode.Overwrite).parquet("/home/csaltos/Documents/ml-latest-small-resultados-parquet/user-1");
-        resultadoDF.write().mode(SaveMode.Overwrite).orc("/home/csaltos/Documents/ml-latest-small-resultados-orc/user-1");
-
-        jsc.close();
-        spark.close();
+        resultadoDF.write().mode(SaveMode.Overwrite).json("/home/csaltos/Documents/ml-latest-small-resultados/user-" + selectedUserId);
+        resultadoDF.write().mode(SaveMode.Overwrite).parquet("/home/csaltos/Documents/ml-latest-small-resultados-parquet/user-" + selectedUserId);
+        resultadoDF.write().mode(SaveMode.Overwrite).orc("/home/csaltos/Documents/ml-latest-small-resultados-orc/user-" + selectedUserId);
     }
-
 
 
     private static Dataset<Row> getMoviesDF(SparkSession spark) {
