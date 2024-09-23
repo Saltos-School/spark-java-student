@@ -114,6 +114,8 @@ public class Movies {
             System.out.println("Pelicula: " + pelicula);
         });
 
+        resultadoDF.write().json("/home/csaltos/Documents/ml-latest-small-resultados/user-1");
+
         jsc.close();
         spark.close();
     }
