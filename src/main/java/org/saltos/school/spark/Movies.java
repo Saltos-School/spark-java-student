@@ -11,7 +11,7 @@ import org.apache.spark.storage.StorageLevel;
 
 import java.util.List;
 
-import static org.apache.spark.sql.functions.desc;
+import static org.apache.spark.sql.functions.*;
 
 public class Movies {
 
@@ -56,9 +56,24 @@ public class Movies {
         ratingsUserTop10MoviesIdsDF.printSchema();
         ratingsUserTop10MoviesIdsDF.show();
 
+        Dataset<Row> ratingsUserTop10MoviesIdsDFWithLinks = ratingsUserTop10MoviesIdsDF.withColumn("movie_link",
+                concat(
+                        lit("http://www.imdb.com/title/tt"),
+                        col("imdbid")));
+        ratingsUserTop10MoviesIdsDFWithLinks.printSchema();
+        ratingsUserTop10MoviesIdsDFWithLinks.show();
+
+        Dataset<Row> resultadoDF = ratingsUserTop10MoviesIdsDFWithLinks.select("rating", "title", "movie_link");
+
+        resultadoDF.foreach(pelicula -> {
+            System.out.println("Pelicula: " + pelicula);
+        });
+
         jsc.close();
         spark.close();
     }
+
+
 
     private static Dataset<Row> getMoviesDF(SparkSession spark) {
         StructType ratingsSchema = DataTypes.createStructType(new StructField[]{
