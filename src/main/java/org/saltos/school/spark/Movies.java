@@ -56,10 +56,9 @@ public class Movies {
         usersDF.printSchema();
         usersDF.show();
 
-        List<Row> listaDeUsuariosRow = usersDF.limit(20).collectAsList();
+        List<Long> userIds = usersDF.limit(20).javaRDD().map(fila -> fila.getLong(0)).collect();
 
-        listaDeUsuariosRow.forEach(usuario -> {
-            Long selectedUserId = usuario.getLong(0);
+        userIds.forEach(selectedUserId -> {
             calcularTop10Usuario(selectedUserId, ratingsDF, moviesDF, linksDF);
         });
 
