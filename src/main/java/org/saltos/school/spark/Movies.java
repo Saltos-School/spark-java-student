@@ -81,6 +81,33 @@ public class Movies {
         ratingsUserTop10MoviesIdsDFWithLinks.printSchema();
         ratingsUserTop10MoviesIdsDFWithLinks.show();
 
+        StructType schemaConMovieLinks = DataTypes.createStructType(new StructField[]{
+                DataTypes.createStructField("movieId", DataTypes.LongType, false),
+                DataTypes.createStructField("userId", DataTypes.LongType, false),
+                DataTypes.createStructField("rating", DataTypes.DoubleType, false),
+                DataTypes.createStructField("timestamp", DataTypes.LongType, false),
+                DataTypes.createStructField("title", DataTypes.StringType, false),
+                DataTypes.createStructField("genres", DataTypes.StringType, false),
+                DataTypes.createStructField("imdbId", DataTypes.StringType, false),
+                DataTypes.createStructField("tmdbId", DataTypes.StringType, false),
+                DataTypes.createStructField("movie_link", DataTypes.StringType, false)
+        });
+        Encoder<Row> encoderConMovieLinks = RowEncoder.apply(schemaConMovieLinks);
+        Dataset<Row> ratingsUserTop10MoviesIdsDFWithLinks2 = ratingsUserTop10MoviesIdsDF.map((MapFunction<Row, Row>) fila -> {
+            Long movieId = fila.getLong(0);
+            Long userId = fila.getLong(1);
+            Double rating = fila.getDouble(2);
+            Long timestamp = fila.getLong(3);
+            String title = fila.getString(4);
+            String genres = fila.getString(5);
+            String imdbId = fila.getString(6);
+            String tmdbId = fila.getString(7);
+            String movieLink = "http://www.imdb.com/title/tt" + imdbId;
+            return RowFactory.create(movieId, userId, rating, timestamp, title, genres, imdbId, tmdbId, movieLink);
+        }, encoderConMovieLinks);
+        ratingsUserTop10MoviesIdsDFWithLinks2.printSchema();
+        ratingsUserTop10MoviesIdsDFWithLinks2.show();
+
         Dataset<Row> resultadoDF = ratingsUserTop10MoviesIdsDFWithLinks.select("rating", "title", "movie_link");
 
         resultadoDF.foreach(pelicula -> {
