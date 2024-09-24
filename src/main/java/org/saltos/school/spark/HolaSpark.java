@@ -21,10 +21,11 @@ public class HolaSpark {
         System.out.println("Hola Spark");
         SparkSession spark = SparkSession.builder()
                 .appName("HolaSpark")
-                .config("spark.master", "local[*]")
+//                .config("spark.master", "local[*]")
                 .getOrCreate();
         JavaSparkContext jsc = JavaSparkContext.fromSparkContext(spark.sparkContext());
         jsc.setLogLevel("WARN");
+        spark.logError(() -> "Hola Spark");
         List<String> nombresEnJava = Arrays.asList("Anna", "Paul", "Pepe", "Sandra");
         JavaRDD<String> nombresEnSpark = jsc.parallelize(nombresEnJava);
         JavaRDD<String> nombresEnMayusculaEnSpark = nombresEnSpark.map(HolaSpark::pasarAMayusculas);
