@@ -26,7 +26,7 @@ public class HolaEMR {
         ratingsDF
                 .write()
                 .mode(SaveMode.Overwrite)
-                .json("s3://saltos-school-spark-data/" + args[1] + "/ratings");
+                .json("s3://saltos-school-spark-data/" + args[0] + "/ratings");
 
         jsc.close();
         spark.close();
